@@ -38,3 +38,18 @@ export const blockReport = async (req, res, next) => {
     console.error('ERROR blockReport: ', error)
   }
 }
+
+export const reopenReport = async (req, res, next) => {
+  try {
+    const reopenedReport = await Report.findByIdAndUpdate(
+      { _id: req.params.reportId },
+      { state: 'OPEN' },
+      { new: true, omitUndefined: true }
+    )
+    console.log(`reopenedReport`, reopenedReport)
+    res.locals.reopenedReport = reopenedReport
+    return next()
+  } catch (error) {
+    console.error('ERROR reopenReport: ', error)
+  }
+}

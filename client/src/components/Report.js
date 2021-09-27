@@ -30,8 +30,15 @@ const Report = ({
   message,
   blockReport,
   resolveReport,
+  reopenReport,
 }) => {
   const classes = useStyles()
+  const handleStatusChange = reportId => {
+    if (status === 'RESOLVED' || status === 'BLOCKED') {
+      return reopenReport(reportId)
+    }
+    if (status === 'OPEN') return resolveReport(reportId)
+  }
   return (
     <Paper className={classes.paper}>
       <Grid container direction='row' justifyContent='space-between'>
@@ -59,7 +66,7 @@ const Report = ({
               Block
             </Button>
             <Button
-              onClick={() => resolveReport(objectId)}
+              onClick={() => handleStatusChange(objectId)}
               className={classes.buttons}
               variant='outlined'>
               {status === 'RESOLVED' ? 'unresolve' : 'resolve'}

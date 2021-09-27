@@ -15,4 +15,8 @@ router.post('/block/:reportId', reportsController.blockReport, (req, res) => {
   res.status(202).json({ blockedReport: res.locals.blockedReport })
 })
 
+router.post('/reopen/:reportId', reportsController.reopenReport, (req, res) => {
+  res.status(202).json({ reopenedReport: res.locals.reopenedReport })
+})
+
 export default router

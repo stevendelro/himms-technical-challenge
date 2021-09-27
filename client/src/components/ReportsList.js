@@ -3,10 +3,10 @@ import { connect } from 'react-redux'
 import Grid from '@material-ui/core/Grid'
 import React from 'react'
 
-import { blockReport, resolveReport } from '../actions/actionCreators'
+import { blockReport, resolveReport, reopenReport } from '../actions/actionCreators'
 import Report from './Report'
 
-export const ReportsList = ({ reports, blockReport, resolveReport }) => {
+export const ReportsList = ({ reports, blockReport, resolveReport, reopenReport }) => {
   const listOfReports = reports.map((report, index) => (
     <Report
       key={`report=${index}`}
@@ -17,6 +17,7 @@ export const ReportsList = ({ reports, blockReport, resolveReport }) => {
       message={report.payload.message}
       blockReport={blockReport}
       resolveReport={resolveReport}
+      reopenReport={reopenReport}
     />
   ))
 
@@ -32,6 +33,7 @@ const mapDispatchToProps = dispatch =>
     {
       blockReport,
       resolveReport,
+      reopenReport,
     },
     dispatch
   )

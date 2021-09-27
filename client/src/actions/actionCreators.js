@@ -68,3 +68,20 @@ export const resolveReport = reportId => dispatch => {
       dispatch(updateReportError(error))
     })
 }
+
+export const reopenReport = reportId => dispatch => {
+  dispatch(fetchReportsStarted())
+  axios
+    .post(`http://localhost:3000/reports/reopen/${reportId}`)
+    .then(response => {
+      dispatch(fetchReportsSuccess())
+      dispatch({
+        type: actions.REOPEN_REPORT,
+        payload: response.data,
+      })
+    })
+    .catch(error => {
+      console.error('reopenReport error: ', error)
+      dispatch(updateReportError(error))
+    })
+}

@@ -53,6 +53,18 @@ const spamReducer = (state = initialState, { type, payload }) => {
         ...state,
         reports: withResolvedUpdate
       }
+    case actions.REOPEN_REPORT:
+      const withReopenedUpdate = []
+      state.reports.forEach(report => {
+        if (report.id === payload.reopenedReport.id) {
+          report.state = payload.reopenedReport.state
+        }
+        withReopenedUpdate.push(report)
+      })
+      return {
+        ...state,
+        reports: withReopenedUpdate
+      }
     default:
       return state
   }
