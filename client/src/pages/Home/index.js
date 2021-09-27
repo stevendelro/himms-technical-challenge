@@ -1,19 +1,12 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
-const useStyles = makeStyles(theme => ({
-  sampleStyle: {
-    color: 'black',
-  },
-}));
-
-export default function Home() {
-  const classes = useStyles();
-
+export default function Home({ loading }) {
   return (
-    <Typography variant="h3" className={classes.sampleStyle}>
-      Home Page index.js
-    </Typography>
+    <>
+      {loading && <LinearProgress color="secondary" />}
+      <Typography variant="h3">home page</Typography>
+    </>
   );
 }
