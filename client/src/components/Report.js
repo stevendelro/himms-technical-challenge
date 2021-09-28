@@ -40,6 +40,8 @@ const Report = ({
   reopenReport,
 }) => {
   const classes = useStyles()
+
+  // Change the functionality of the second button depending on the current report status.
   const handleStatusChange = reportId => {
     if (status === 'RESOLVED' || status === 'BLOCKED') {
       return reopenReport(reportId)
@@ -76,7 +78,10 @@ const Report = ({
               onClick={() => handleStatusChange(objectId)}
               className={classes.buttons}
               variant='outlined'>
-              {status === 'RESOLVED' ? 'unresolve' : 'resolve'}
+              {/* Change the button text depending on the current report status */}
+              {status === 'OPEN' && 'resolve'}
+              {status === 'RESOLVED' && 'reopen'}
+              {status === 'BLOCKED' && 'unblock'}
             </Button>
           </Grid>
         </Grid>

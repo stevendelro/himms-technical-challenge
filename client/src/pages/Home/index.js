@@ -9,10 +9,26 @@ import ReportsList from '../../components/ReportsList'
 
 export default function Home({ loading }) {
   const [showResolved, setShowResolved] = useState(false)
-  const spinnerSpacer = loading ? (
-    <LinearProgress color='secondary' />
-  ) : (
-    <div style={{ height: '4px' }}></div>
+  // prettier-ignore
+  const spinnerSpacer = (
+    loading
+      ? <LinearProgress color='secondary' />
+      : <div style={{ height: '4px' }}></div>
+  )
+  const toggleSwitch = (
+    <FormGroup>
+      <FormControlLabel
+        control={
+          <Switch
+            checked={showResolved}
+            onChange={() => setShowResolved(!showResolved)}
+            name='checkedA'
+            inputProps={{ 'aria-label': 'secondary checkbox' }}
+          />
+        }
+        label='Show Resolved'
+      />
+    </FormGroup>
   )
   return (
     <Grid
@@ -22,19 +38,7 @@ export default function Home({ loading }) {
       alignItems='flex-start'>
       {spinnerSpacer}
       <ReportsList showResolved={showResolved} />
-      <FormGroup>
-        <FormControlLabel
-          control={
-            <Switch
-              checked={showResolved}
-              onChange={() => setShowResolved(!showResolved)}
-              name='checkedA'
-              inputProps={{ 'aria-label': 'secondary checkbox' }}
-            />
-          }
-          label='Show Resolved'
-        />
-      </FormGroup>
+      {toggleSwitch}
     </Grid>
   )
 }
