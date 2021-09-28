@@ -14,9 +14,9 @@ export const getReports = async (req, res, next) => {
 export const resolveReport = async (req, res, next) => {
   try {
     const updatedReport = await Report.findByIdAndUpdate(
-      { _id: req.params.reportId },
-      { state: 'RESOLVED' },
-      { new: true, omitUndefined: true }
+      { _id: req.params.reportId }, // The parameter used to locate the proper document.
+      { state: 'RESOLVED' }, // The property to update on the document.
+      { new: true, omitUndefined: true } // Config: `new` will return the updated document. `omitUndefined` allows the ability to send only the updates needed for changes.
     )
     res.locals.updatedReport = updatedReport
     return next()

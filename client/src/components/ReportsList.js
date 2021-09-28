@@ -17,6 +17,8 @@ export const ReportsList = ({
   reopenReport,
   showResolved,
 }) => {
+  // listOfReports will produce an array of unresolved reports
+  // if showResolved is true, it will include all resolved reports
   const listOfReports = reports.map((report, index) => {
     if (showResolved) {
       return (

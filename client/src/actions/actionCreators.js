@@ -16,11 +16,14 @@ export const updateReportError = error => ({
 })
 
 export const fetchReports = () => dispatch => {
+  // Toggle loading to true, display a loading indicator.
   dispatch(fetchReportsStarted())
   axios
     .get('http://localhost:3000/reports')
     .then(response => {
+      // Toggle loading to false, remove loading indicator.
       dispatch(fetchReportsSuccess())
+      // Update redux store with API data
       dispatch({
         type: actions.FETCH_REPORTS,
         payload: response.data,
@@ -35,6 +38,7 @@ export const fetchReports = () => dispatch => {
     })
 }
 
+// Same functionality as above, different endpoint.
 export const blockReport = reportId => dispatch => {
   dispatch(fetchReportsStarted())
   axios
@@ -52,6 +56,7 @@ export const blockReport = reportId => dispatch => {
     })
 }
 
+// Same functionality as above, different endpoint.
 export const resolveReport = reportId => dispatch => {
   dispatch(fetchReportsStarted())
   axios
@@ -69,6 +74,7 @@ export const resolveReport = reportId => dispatch => {
     })
 }
 
+// Same functionality as above, different endpoint.
 export const reopenReport = reportId => dispatch => {
   dispatch(fetchReportsStarted())
   axios
