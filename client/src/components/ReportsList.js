@@ -3,23 +3,52 @@ import { connect } from 'react-redux'
 import Grid from '@material-ui/core/Grid'
 import React from 'react'
 
-import { blockReport, resolveReport, reopenReport } from '../actions/actionCreators'
+import {
+  blockReport,
+  resolveReport,
+  reopenReport,
+} from '../actions/actionCreators'
 import Report from './Report'
 
-export const ReportsList = ({ reports, blockReport, resolveReport, reopenReport }) => {
-  const listOfReports = reports.map((report, index) => (
-    <Report
-      key={`report=${index}`}
-      objectId={report._id}
-      reportId={report.id.slice(24, report.id.length)}
-      type={report.payload.reportType}
-      status={report.state}
-      message={report.payload.message}
-      blockReport={blockReport}
-      resolveReport={resolveReport}
-      reopenReport={reopenReport}
-    />
-  ))
+export const ReportsList = ({
+  reports,
+  blockReport,
+  resolveReport,
+  reopenReport,
+  showResolved,
+}) => {
+  const listOfReports = reports.map((report, index) => {
+    if (showResolved) {
+      return (
+        <Report
+          key={`report=${index}`}
+          objectId={report._id}
+          reportId={report.id.slice(24, report.id.length)}
+          type={report.payload.reportType}
+          status={report.state}
+          message={report.payload.message}
+          blockReport={blockReport}
+          resolveReport={resolveReport}
+          reopenReport={reopenReport}
+        />
+      )
+    }
+    if (report.state !== 'RESOLVED') {
+      return (
+        <Report
+          key={`report=${index}`}
+          objectId={report._id}
+          reportId={report.id.slice(24, report.id.length)}
+          type={report.payload.reportType}
+          status={report.state}
+          message={report.payload.message}
+          blockReport={blockReport}
+          resolveReport={resolveReport}
+          reopenReport={reopenReport}
+        />
+      )
+    }
+  })
 
   return <Grid>{listOfReports}</Grid>
 }
