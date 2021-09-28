@@ -7,16 +7,16 @@ router.get('/', reportsController.getReports, (req, res) => {
   res.status(200).json({ reports: res.locals.reports })
 })
 
-router.put('/:reportId', reportsController.resolveReport, (req, res) => {
-  res.status(202).json({ resolvedReport: res.locals.updatedReport})
+router.put('/:reportId/:status', reportsController.updateReport, (req, res) => {
+  res.status(202).json({ updatedReport: res.locals.updatedReport})
 })
 
-router.post('/block/:reportId', reportsController.blockReport, (req, res) => {
-  res.status(202).json({ blockedReport: res.locals.blockedReport })
+router.post('/block/:reportId/:status', reportsController.updateReport, (req, res) => {
+  res.status(202).json({ updatedReport: res.locals.updatedReport })
 })
 
-router.post('/reopen/:reportId', reportsController.reopenReport, (req, res) => {
-  res.status(202).json({ reopenedReport: res.locals.reopenedReport })
+router.post('/reopen/:reportId/:status', reportsController.updateReport, (req, res) => {
+  res.status(202).json({ updatedReport: res.locals.updatedReport })
 })
 
 export default router
