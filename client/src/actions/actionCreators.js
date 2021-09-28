@@ -2,15 +2,15 @@ import axios from 'axios'
 
 import * as actions from './actions'
 
-export const fetchReportsStarted = () => ({
+const fetchReportsStarted = () => ({
   type: actions.FETCH_REPORTS_STARTED,
 })
 
-export const fetchReportsSuccess = () => ({
+const fetchReportsSuccess = () => ({
   type: actions.FETCH_REPORTS_SUCCESS,
 })
 
-export const updateReportError = error => ({
+const updateReportError = error => ({
   type: actions.UPDATE_REPORT_ERROR,
   payload: error,
 })
@@ -38,56 +38,27 @@ export const fetchReports = () => dispatch => {
     })
 }
 
-// Same functionality as above, different endpoint.
-export const blockReport = reportId => dispatch => {
-  dispatch(fetchReportsStarted())
-  axios
-    .post(`http://localhost:3000/reports/block/${reportId}`)
-    .then(response => {
-      dispatch(fetchReportsSuccess())
-      dispatch({
-        type: actions.BLOCK_REPORT,
-        payload: response.data,
-      })
-    })
-    .catch(error => {
-      console.error('blockReport error: ', error)
-      dispatch(updateReportError(error))
-    })
-}
+export const updateReport = (update, reportId) => dispatch => {
+  let axiosMethod
+  // Change the API call depending on the type of update
+  if (update === 'block')
+    axiosMethod = axios.post(`http://localhost:3000/reports/block/${reportId}/BLOCKED`)
+  if (update === 'resolve')
+    axiosMethod = axios.put(`http://localhost:3000/reports/${reportId}/RESOLVED`)
+  if (update === 'reopen')
+    axiosMethod = axios.post(`http://localhost:3000/reports/reopen/${reportId}/OPEN`)
 
-// Same functionality as above, different endpoint.
-export const resolveReport = reportId => dispatch => {
   dispatch(fetchReportsStarted())
-  axios
-    .put(`http://localhost:3000/reports/${reportId}`)
+  axiosMethod
     .then(response => {
       dispatch(fetchReportsSuccess())
       dispatch({
-        type: actions.RESOLVE_REPORT,
-        payload: response.data,
+        type: actions.UPDATE_REPORT,
+        payload: response.data.updatedReport,
       })
     })
     .catch(error => {
-      console.error('resolveReport error: ', error)
-      dispatch(updateReportError(error))
-    })
-}
-
-// Same functionality as above, different endpoint.
-export const reopenReport = reportId => dispatch => {
-  dispatch(fetchReportsStarted())
-  axios
-    .post(`http://localhost:3000/reports/reopen/${reportId}`)
-    .then(response => {
-      dispatch(fetchReportsSuccess())
-      dispatch({
-        type: actions.REOPEN_REPORT,
-        payload: response.data,
-      })
-    })
-    .catch(error => {
-      console.error('reopenReport error: ', error)
+      console.error(`${update}Report error: `, error)
       dispatch(updateReportError(error))
     })
 }

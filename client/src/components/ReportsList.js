@@ -3,20 +3,10 @@ import { connect } from 'react-redux'
 import Grid from '@material-ui/core/Grid'
 import React from 'react'
 
-import {
-  blockReport,
-  resolveReport,
-  reopenReport,
-} from '../actions/actionCreators'
+import { updateReport } from '../actions/actionCreators'
 import Report from './Report'
 
-export const ReportsList = ({
-  reports,
-  blockReport,
-  resolveReport,
-  reopenReport,
-  showResolved,
-}) => {
+export const ReportsList = ({ reports, updateReport, showResolved }) => {
   // listOfReports will produce an array of unresolved reports
   // if showResolved is true, it will include all resolved reports
   const listOfReports = reports.map((report, index) => {
@@ -29,9 +19,7 @@ export const ReportsList = ({
           type={report.payload.reportType}
           status={report.state}
           message={report.payload.message}
-          blockReport={blockReport}
-          resolveReport={resolveReport}
-          reopenReport={reopenReport}
+          updateReport={updateReport}
         />
       )
     }
@@ -44,9 +32,7 @@ export const ReportsList = ({
           type={report.payload.reportType}
           status={report.state}
           message={report.payload.message}
-          blockReport={blockReport}
-          resolveReport={resolveReport}
-          reopenReport={reopenReport}
+          updateReport={updateReport}
         />
       )
     }
@@ -60,13 +46,6 @@ const mapStateToProps = store => ({
 })
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators(
-    {
-      blockReport,
-      resolveReport,
-      reopenReport,
-    },
-    dispatch
-  )
+  bindActionCreators({ updateReport }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(ReportsList)

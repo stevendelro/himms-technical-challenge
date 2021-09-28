@@ -35,18 +35,16 @@ const Report = ({
   type,
   status,
   message,
-  blockReport,
-  resolveReport,
-  reopenReport,
+  updateReport,
 }) => {
   const classes = useStyles()
 
   // Change the functionality of the second button depending on the current report status.
   const handleStatusChange = reportId => {
     if (status === 'RESOLVED' || status === 'BLOCKED') {
-      return reopenReport(reportId)
+      return updateReport('reopen', reportId)
     }
-    if (status === 'OPEN') return resolveReport(reportId)
+    if (status === 'OPEN') return updateReport('resolve', reportId)
   }
   return (
     <Paper className={classes.paper}>
@@ -69,7 +67,7 @@ const Report = ({
             justifyContent='space-between'
             alignItems='center'>
             <Button
-              onClick={() => blockReport(objectId)}
+              onClick={() => updateReport('block', objectId)}
               className={classes.buttons}
               variant='outlined'>
               Block
