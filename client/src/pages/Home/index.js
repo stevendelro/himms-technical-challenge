@@ -1,16 +1,13 @@
-import LinearProgress from '@material-ui/core/LinearProgress';
-import React from 'react';
-import Typography from '@material-ui/core/Typography';
+import LinearProgress from '@material-ui/core/LinearProgress'
+import React from 'react'
 
-import ReportsList from '../../components/ReportsList';
+import ReportsList from '../../components/ReportsList'
 
 export default function Home({ loading }) {
   return (
     <>
-      {loading && <LinearProgress color="secondary" />}
-      <Typography variant="h3">
-        <ReportsList />
-      </Typography>
+      {loading ? <LinearProgress color='secondary' /> : <div style={{ height: '4px'}}></div>}
+      <ReportsList />
     </>
-  );
+  )
 }

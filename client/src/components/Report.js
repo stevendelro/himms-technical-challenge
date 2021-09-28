@@ -20,6 +20,13 @@ const useStyles = makeStyles(theme => ({
     },
     minWidth: theme.spacing(120 / 8),
   },
+  details: {
+    color: '#0969da',
+    '&:hover': {
+      cursor: 'pointer',
+      textDecoration: 'underline'
+    }
+  }
 }))
 
 const Report = ({
@@ -45,7 +52,7 @@ const Report = ({
         <Grid item>
           <Typography variant='body1'>Id: {reportId}</Typography>
           <Typography variant='body1'>State: {status}</Typography>
-          <Typography variant='body1'>Details</Typography>
+          <Typography className={classes.details} variant='body1'>Details</Typography>
         </Grid>
         <Grid item className={classes.secondColumn}>
           <Typography variant='body1'>Type: {type}</Typography>
