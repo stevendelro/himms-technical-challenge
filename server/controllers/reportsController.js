@@ -14,9 +14,9 @@ export const getReports = async (req, res, next) => {
 export const updateReport = async (req, res, next) => {
   try {
     const updatedReport = await Report.findByIdAndUpdate(
-      { _id: req.params.reportId },
-      { state: req.params.status },
-      { new: true, omitUndefined: true }
+      { _id: req.params.reportId }, // Itentifier to locate document to modify
+      { state: req.params.status }, // The modifications to be made
+      { new: true, omitUndefined: true } // Config
     )
     res.locals.updatedReport = updatedReport
     return next()
