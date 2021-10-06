@@ -31,10 +31,7 @@ export const fetchReports = () => dispatch => {
     })
     .catch(error => {
       console.error('fetchReports error: ', error)
-      dispatch({
-        type: actions.FETCH_REPORTS_ERROR,
-        payload: error,
-      })
+      dispatch({ type: actions.FETCH_REPORTS_ERROR, payload: error })
     })
 }
 
@@ -42,11 +39,17 @@ export const updateReport = (update, reportId) => dispatch => {
   let axiosMethod
   // Change the API call depending on the type of update
   if (update === 'block')
-    axiosMethod = axios.post(`http://localhost:3000/reports/block/${reportId}/BLOCKED`)
+    axiosMethod = axios.post(
+      `http://localhost:3000/reports/block/${reportId}/BLOCKED`
+    )
   if (update === 'resolve')
-    axiosMethod = axios.put(`http://localhost:3000/reports/${reportId}/RESOLVED`)
+    axiosMethod = axios.put(
+      `http://localhost:3000/reports/${reportId}/RESOLVED`
+    )
   if (update === 'reopen')
-    axiosMethod = axios.post(`http://localhost:3000/reports/reopen/${reportId}/OPEN`)
+    axiosMethod = axios.post(
+      `http://localhost:3000/reports/reopen/${reportId}/OPEN`
+    )
 
   dispatch(fetchReportsStarted())
   axiosMethod

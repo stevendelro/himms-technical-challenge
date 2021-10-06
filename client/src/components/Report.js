@@ -1,5 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles'
+import Box from '@material-ui/core/Box'
 import Button from '@material-ui/core/Button'
+import clsx from 'clsx'
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
 import React from 'react'
@@ -24,9 +26,25 @@ const useStyles = makeStyles(theme => ({
     color: '#0969da',
     '&:hover': {
       cursor: 'pointer',
-      textDecoration: 'underline'
-    }
-  }
+      textDecoration: 'underline',
+    },
+  },
+  btnContainer: {
+    [theme.breakpoints.down('xs')]: {
+      width: '100%',
+      '&:first-child': {
+        marginTop: theme.spacing(2),
+      },
+    },
+  },
+  firstGridItem: {
+    [theme.breakpoints.down('xs')]: {
+      width: '100%',
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+    },
+  },
 }))
 
 const Report = ({
@@ -49,10 +67,16 @@ const Report = ({
   return (
     <Paper className={classes.paper}>
       <Grid container direction='row' justifyContent='space-between'>
-        <Grid item>
-          <Typography variant='body1'>Id: {reportId}</Typography>
-          <Typography variant='body1'>State: {status}</Typography>
-          <Typography className={classes.details} variant='body1'>Details</Typography>
+        <Grid item className={classes.firstGridItem}>
+          <Box>
+            <Typography variant='body1'>Id: {reportId}</Typography>
+            <Typography variant='body1'>State: {status}</Typography>
+          </Box>
+          <Box>
+            <Typography className={classes.details} variant='body1'>
+              Details
+            </Typography>
+          </Box>
         </Grid>
         <Grid item className={classes.secondColumn}>
           <Typography variant='body1'>Type: {type}</Typography>
@@ -60,7 +84,7 @@ const Report = ({
             Message: {message ? message : 'No message'}
           </Typography>
         </Grid>
-        <Grid item>
+        <Grid item className={classes.btnContainer}>
           <Grid
             container
             direction='column'
@@ -68,13 +92,13 @@ const Report = ({
             alignItems='center'>
             <Button
               onClick={() => updateReport('block', objectId)}
-              className={classes.buttons}
+              className={clsx(classes.buttons, classes.btnContainer)}
               variant='outlined'>
               Block
             </Button>
             <Button
               onClick={() => handleStatusChange(objectId)}
-              className={classes.buttons}
+              className={clsx(classes.buttons, classes.btnContainer)}
               variant='outlined'>
               {/* Change the button text depending on the current report status */}
               {status === 'OPEN' && 'resolve'}
